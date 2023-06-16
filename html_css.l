@@ -15,11 +15,10 @@
 
 %%
 
-
 "<!DOCTYPE html"[^>]*">"                                        { fileIsCSS = false; 
                                                                   return DOCTYPE_TAG; 
                                                                 }
-"<"[^ />]*([ ]*[^/=>]+("="\"[^\"]*\")?)*[ ]*"/>"                   { int spaceIndex = string(yytext).find_first_of(' ');
+"<"[a-zA-Z]+([ ]*[^/=>]+("="\"[^\"]*\")?)*[ ]*"/>"                { int spaceIndex = string(yytext).find_first_of(' ');
                                                                   if(spaceIndex == -1)
                                                                   {
                                                                     yylval.sval = strdup(&(string(yytext).substr(1, string(yytext).length() - 3))[0]);
@@ -28,6 +27,7 @@
                                                                   {
                                                                     yylval.sval = strdup(&(string(yytext).substr(1, spaceIndex - 1))[0]);
                                                                   }
+								  cout << yylval.sval << endl;
                                                                   return SELF_CLOSING_TAG; 
                                                                 }
 "</"[^>]*">"                                                    { int spaceIndex = string(yytext).find_first_of(' ');
@@ -39,9 +39,10 @@
                                                                   {
                                                                     yylval.sval = strdup(&(string(yytext).substr(1, spaceIndex - 1))[0]);
                                                                   }
+								  cout << yylval.sval << endl;
                                                                   return CLOSING_TAG; 
                                                                 }
-"<"[^ />]*([ ]*[^/=>]+("="\"[^\"]*\")?)*[ ]*">"                    { int spaceIndex = string(yytext).find_first_of(' ');
+"<"[a-zA-Z]+([ ]*[^/=>]+("="\"[^\"]*\")?)*[ ]*">"                    { int spaceIndex = string(yytext).find_first_of(' ');
                                                                   if(spaceIndex == -1)
                                                                   {
                                                                     yylval.sval = strdup(&(string(yytext).substr(1, string(yytext).length() - 2))[0]);
@@ -50,9 +51,9 @@
                                                                   {
                                                                     yylval.sval = strdup(&(string(yytext).substr(1, spaceIndex - 1))[0]);
                                                                   }
+								  cout << yylval.sval << endl;
                                                                   return OPENING_TAG; 
                                                                 }
-"document.write("[^)]*")";					;
 .                                                               ;
 
 
