@@ -50,7 +50,7 @@
 									return SELECTOR;
 								  }
 								}
-".hasNoSvg img[src *= '.svg']"					{ if(fileIsCSS)
+"."[a-zA-Z]+" "[a-zA-Z]+"["[^\]]*"]"				{ if(fileIsCSS)
 								  {
 									yylval.sval = strdup(yytext);
 									return SELECTOR;
